@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="/CSS/css quiz.css" />
+  </head>
+  <body>
+    <!-- Startpagina -->
+    <div id="start-page" class="quiz-card">
+      <div class="quiz-icon">?</div>
+      <h1>Quiz</h1>
+      <p class="tagline">Hoe goed ken je deze dingen?</p>
+      <p>
+        Doe mee met deze quiz en daag jezelf uit met vragen over Topografie,
+        Muziek en Sport!
+      </p>
+
+      <div class="quiz-info">
+        <ul>
+          <li><strong>20 vragen</strong> om je kennis te testen</li>
+          <li><strong>Multiple-choice</strong> antwoorden</li>
+          <li>Krijg direct feedback na elke vraag</li>
+          <li>Zie je score aan het einde!</li>
+        </ul>
+      </div>
+
+      <button class="start-button" onclick="showCategoryPage()">
+        Start Quiz!
+      </button>
+    </div>
+
+    <div id="name-popup" class="popup">
+      <div class="popup-content">
+        <h2>Voer je naam in</h2>
+        <input type="text" id="player-name" placeholder="Naam..." />
+        <button id="submit-name">Bevestigen</button>
+      </div>
+    </div>
+
+    <!-- Categoriepagina -->
+    <div id="category-page" class="quiz-card category-page">
+      <div class="category-title">Kies Je Categorie</div>
+
+      <h2>Selecteer je categorie van vragen</h2>
+
+      <div class="categories-container">
+        <button
+          class="category-button topografie"
+          style="
+            background-image: url('https://ozc-cascade.nl/wp-content/uploads/2022/03/topografie.jpg');
+          "
+          onclick="selectCategory('Topografie')"
+        >
+          <span>Topografie</span>
+        </button>
+        <button
+          class="category-button muziek"
+          style="
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi7sGqYs0efE2uD0Yo6mN9zjjLBg1wEvzB4A&s');
+          "
+          onclick="selectCategory('Muziek')"
+        >
+          <span>Muziek</span>
+        </button>
+        <button
+          class="category-button sport"
+          style="
+            background-image: url('https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg');
+          "
+          onclick="selectCategory('Sport')"
+        >
+          <span>Sport</span>
+        </button>
+      </div>
+
+      <div class="navigation">
+        <button class="nav-button" onclick="showStartPage()">Terug</button>
+        <button
+          class="nav-button"
+          id="start-quiz-btn"
+          onclick="startQuiz()"
+          disabled
+        >
+          Start Quiz met <span id="selected-category">...</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let selectedCategory = null;
+
+      function showCategoryPage() {
+        document.getElementById("start-page").style.display = "none";
+        document.getElementById("category-page").style.display = "block";
+      }
+
+      function showStartPage() {
+        document.getElementById("category-page").style.display = "none";
+        document.getElementById("start-page").style.display = "block";
+        resetSelection();
+      }
+
+      function selectCategory(category) {
+        selectedCategory = category;
+        document.getElementById("selected-category").textContent = category;
+        document.getElementById("start-quiz-btn").disabled = false;
+        document.getElementById("start-quiz-btn").style.background =
+          "rgba(52, 152, 219, 0.8)";
+
+        // Visuele feedback - markeer geselecteerde categorie
+        const buttons = document.querySelectorAll(".category-button");
+        buttons.forEach((button) => {
+          // Reset naar standaard kleuren
+          if (button.classList.contains("topografie")) {
+            button.style.borderColor = "#3498db";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(52, 152, 219, 0.3), 0 5px 15px rgba(52, 152, 219, 0.5)";
+          } else if (button.classList.contains("muziek")) {
+            button.style.borderColor = "#9b59b6";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(155, 89, 182, 0.3), 0 5px 15px rgba(155, 89, 182, 0.5)";
+          } else if (button.classList.contains("sport")) {
+            button.style.borderColor = "#e74c3c";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(231, 76, 60, 0.3), 0 5px 15px rgba(231, 76, 60, 0.5)";
+          }
+        });
+
+        // Markeer de geselecteerde knop met groen
+        event.currentTarget.style.borderColor = "#2ecc71";
+        event.currentTarget.style.boxShadow =
+          "0 0 0 6px rgba(46, 204, 113, 0.4), 0 5px 15px rgba(46, 204, 113, 0.6)";
+      }
+
+      function resetSelection() {
+        selectedCategory = null;
+        document.getElementById("start-quiz-btn").disabled = true;
+        document.getElementById("start-quiz-btn").style.background =
+          "rgba(52, 152, 219, 0.3)";
+
+        const buttons = document.querySelectorAll(".category-button");
+        buttons.forEach((button) => {
+          // Reset naar standaard kleuren
+          if (button.classList.contains("topografie")) {
+            button.style.borderColor = "#3498db";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(52, 152, 219, 0.3), 0 5px 15px rgba(52, 152, 219, 0.5)";
+          } else if (button.classList.contains("muziek")) {
+            button.style.borderColor = "#9b59b6";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(155, 89, 182, 0.3), 0 5px 15px rgba(155, 89, 182, 0.5)";
+          } else if (button.classList.contains("sport")) {
+            button.style.borderColor = "#e74c3c";
+            button.style.boxShadow =
+              "0 0 0 4px rgba(231, 76, 60, 0.3), 0 5px 15px rgba(231, 76, 60, 0.5)";
+          }
+        });
+      }
+
+      function startQuiz() {
+        if (selectedCategory) {
+          // Doorsturen naar quiz.html met de categorie in de URL
+          window.location.href = `vragen.html?category=${encodeURIComponent(
+            selectedCategory
+          )}`;
+        }
+      }
+
+      const popup = document.getElementById("name-popup");
+      const submitNameBtn = document.getElementById("submit-name");
+      const playerNameInput = document.getElementById("player-name");
+      const quizContainer = document.querySelector(".quiz-container");
+
+      let playerName = "Speler"; // standaardnaam
+
+      // Wanneer er op de knop in de pop-up wordt geklikt
+      submitNameBtn.addEventListener("click", () => {
+        playerName = playerNameInput.value || "Speler"; 
+        popup.style.display = "none"; // verberg pop-up
+        quizContainer.style.display = "block"; // toon quiz
+        startQuiz(); // start quiz
+      });
+    </script>
+  </body>
+</html>
