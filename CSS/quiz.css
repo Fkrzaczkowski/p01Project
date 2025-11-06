@@ -92,7 +92,6 @@ body {
                         0 2px 8px rgba(52, 152, 219, 0);
         }
         
-        /* Pulsing animation for the glow effect */
         @keyframes pulse-glow {
             0% {
                 text-shadow: 0 0 5px #411e82a4, 
@@ -259,7 +258,7 @@ body {
         }
         /* Pop-up */
 .popup {
-  display: flex; /* domyślnie pokazany po wejściu */
+  display: flex; 
   position: fixed;
   top: 0;
   left: 0;
